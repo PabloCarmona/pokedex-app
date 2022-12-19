@@ -16,6 +16,12 @@ jobs:
         run: npm ci
       - name: Build for production
         run: npm run build
+      - name: Upload dist folder for testing
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-folder
+          path: .next
+
 
   test:
     timeout-minutes: 60
