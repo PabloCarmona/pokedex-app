@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { useQuery } from '@tanstack/react-query'
+import getPokemons from '../queries/getPokemons'
 
 export default function Home() {
+  const result = useQuery({ queryKey: ['pokemons'], queryFn: getPokemons })
   return (
     <>
       <Head>
