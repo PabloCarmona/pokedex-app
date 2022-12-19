@@ -1,0 +1,38 @@
+.card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 150px;
+  border: 1px solid rgb(236, 236, 236);
+}
+
+.image-wrapper {
+  display: grid;
+  flex: 1;
+  padding: 10px;
+  place-items: center;
+}
+
+.image {
+  height: auto;
+  max-width: 100%;
+}
+
+.info {
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(236, 236, 236);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.types {
+  font-size: 0.7rem;
+  font-weight: 300;
+}

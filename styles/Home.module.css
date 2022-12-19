@@ -1,0 +1,8 @@
+.list {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template: repeat(3, 1fr) / repeat(5, 1fr);
+  padding: 1.2rem;
+  place-items: center;
+  row-gap: 1.2rem;
+}
