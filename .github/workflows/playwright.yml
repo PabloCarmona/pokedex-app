@@ -37,6 +37,10 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        uses: actions/download-artifact@v3
+          with:
+            name: dist-folder
+            path: .next
         run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
