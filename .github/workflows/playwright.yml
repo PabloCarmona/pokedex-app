@@ -16,8 +16,6 @@ jobs:
         run: npm ci
       - name: Build for production
         run: npm run build
-      - name: Start web server
-        run: npm start
 
   test:
     timeout-minutes: 60
