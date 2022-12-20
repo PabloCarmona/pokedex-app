@@ -19,10 +19,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <h1>Pokedex App</h1>
-      </header>
-
       <main className={styles.main}>
         <ul className={styles.list}>
           {renderList()}

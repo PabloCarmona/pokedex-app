@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test'
 
-test('should render the home page', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.locator('h1')).toContainText('Pokedex App')
-})
+test.describe('home page', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+  })
 
-// test('should render a list with pokemons', async ({ page }) => {
-//   const items = await page.locator('ul > li')
-//   await expect(await items.count()).toBeGreaterThanOrEqual(5)
-// })
+  test('should render the page', async ({ page }) => {
+    await expect(page.locator('main')).toBeTruthy()
+  })
+
+  test('should show a list of pokemons', async ({ page }) => {
+    await expect(page.locator('ul > li')).toHaveCount(10)
+  })
+})
