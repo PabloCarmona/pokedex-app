@@ -10,6 +10,7 @@ test.describe('home page', () => {
   })
 
   test('should show a list of pokemons', async ({ page }) => {
+    test.setTimeout(60 * 1000)
     await expect(page.locator('ul > li')).toHaveCount(10)
   })
 })
