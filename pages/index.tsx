@@ -61,7 +61,7 @@ export default function Home() {
             </React.Fragment>
           ))
         }
-        <li ref={ref}>Last element on the list</li>
+        <li id="last_list_element" ref={ref}></li>
       </ul>
     )
   }
@@ -81,9 +81,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        {renderList()}
-      </main>
+      {renderList()}
     </>
   )
 }
