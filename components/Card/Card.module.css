@@ -10,6 +10,7 @@
 .image-wrapper {
   display: grid;
   flex: 1;
+  height: 150px;
   padding: 10px;
   place-items: center;
 }
