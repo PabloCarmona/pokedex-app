@@ -11,7 +11,7 @@ type Props = {
 const renderTypes = (types: Array<string>): string =>
   types.length > 1 ? types.join(', ') : types.join('')
 
-const Card = ({ data }: Props) => {
+const Card: React.FC<Props> = ({ data }) => {
   return (
     <div className={styles.card}>
       <div className={styles['image-wrapper']}>

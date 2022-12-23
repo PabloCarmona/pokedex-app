@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Favorite = () => {
+const Favorite: React.FC = () => {
   const [favorite, setFavorite] = useState(false)
   return favorite ? (
     <svg style={{ cursor: 'pointer' }} onClick={() => setFavorite(false)} id="icon" x="0px" y="0px" width="16" height="16" viewBox="0 0 32 32" fill="#ff0001">

@@ -7,17 +7,16 @@ import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
-
-const List = () => {
-  const fetchPokemons = async ({ pageParam = 0 }) => {
-    try {
-      const res = await axios.get(`${API_URL}/pokemon?offset=${pageParam}`)
-      return res.data
-    } catch (error) {
-      console.error(error)
-    }
+const fetchPokemons = async ({ pageParam = 0 }) => {
+  try {
+    const res = await axios.get(`${API_URL}/pokemon?offset=${pageParam}`)
+    return res.data
+  } catch (error) {
+    console.error(error)
   }
+}
 
+const List: React.FC = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ['pokemons'],
