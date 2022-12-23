@@ -6,3 +6,5 @@ export type Pokemon = {
   number: number
   types: Array<string>
 }
+
+export type PokemonTypes = Array<string>

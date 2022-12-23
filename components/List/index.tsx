@@ -4,7 +4,7 @@ import Card from '../Card'
 import styles from './List.module.css'
 import type { Pokemon } from '../../types'
 import { useInView } from 'react-intersection-observer'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
 
 const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
 const fetchPokemons = async ({ pageParam = 0 }) => {

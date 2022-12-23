@@ -1,9 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import styles from './Header.module.css'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import Grid from '../Icons/Grid'
 import Menu from '../Icons/Menu'
+import { PokemonTypes } from '../../types'
 
 const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
 const fetchTypes = async () => {
@@ -17,7 +18,7 @@ const fetchTypes = async () => {
 
 const Header: React.FC = () => {
   const [showFavorites, setShowFavorites] = React.useState(false)
-  const { data: types } = useQuery({
+  const { data: types }: UseQueryResult<PokemonTypes> = useQuery({
     queryKey: ['types'],
     queryFn: fetchTypes,
   })
