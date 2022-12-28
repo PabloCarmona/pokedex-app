@@ -1,23 +1,17 @@
 import React from 'react'
-import axios from 'axios'
-import styles from './Header.module.css'
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import Grid from '../Icons/Grid'
 import Menu from '../Icons/Menu'
+import styles from './Header.module.css'
 import { PokemonTypes } from '../../types'
+import { fetchTypes } from '../../utils/api'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
-const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
-const fetchTypes = async () => {
-  try {
-    const res = await axios.get(`${API_URL}/pokemon-types`)
-    return res.data
-  } catch (error) {
-    console.error(error)
-  }
+interface Props {
+  handleFavorites: React.MouseEventHandler<HTMLButtonElement>,
+  isFavorite: boolean
 }
 
-const Header: React.FC = () => {
-  const [showFavorites, setShowFavorites] = React.useState(false)
+const Header: React.FC<Props> = ({ handleFavorites, isFavorite }) => {
   const { data: types }: UseQueryResult<PokemonTypes> = useQuery({
     queryKey: ['types'],
     queryFn: fetchTypes,
@@ -27,14 +21,14 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <button
-          onClick={() => setShowFavorites(false)}
-          className={`${styles['nav-item']} ${!showFavorites && styles['nav-item-selected']}`}
+          onClick={() => handleFavorites(false)}
+          className={`${styles['nav-item']} ${!isFavorite && styles['nav-item-selected']}`}
         >
           All
         </button>
         <button
-          onClick={() => setShowFavorites(true)}
-          className={`${styles['nav-item']} ${showFavorites && styles['nav-item-selected']}`}
+          onClick={() => handleFavorites(true)}
+          className={`${styles['nav-item']} ${isFavorite && styles['nav-item-selected']}`}
         >
           Favorites
         </button>
