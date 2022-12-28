@@ -3,7 +3,9 @@ import Head from 'next/head'
 import List from '../components/List'
 import Header from '../components/Header'
 
-export default function Home() {
+export default function Home(): JSX.Element {
+  const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
+
   return (
     <>
       <Head>

@@ -1,20 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import Card from '../Card'
 import styles from './List.module.css'
 import type { Pokemon } from '../../types'
+import { fetchPokemons } from '../../utils/api'
 import { useInView } from 'react-intersection-observer'
-import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
-
-const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
-const fetchPokemons = async ({ pageParam = 0 }) => {
-  try {
-    const res = await axios.get(`${API_URL}/pokemon?offset=${pageParam}`)
-    return res.data
-  } catch (error) {
-    console.error(error)
-  }
-}
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 const List: React.FC = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
@@ -44,7 +34,7 @@ const List: React.FC = () => {
         </div>
       ) : (
         <ul className={styles.list}>
-          {data.pages.map((page) => (
+              {data?.pages.map((page) => (
             <React.Fragment key={crypto.randomUUID()}>
               {page.items.map((item: Pokemon) => (
                 <li key={item.id}>
