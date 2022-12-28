@@ -7,7 +7,7 @@ import { fetchTypes } from '../../utils/api'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
 interface Props {
-  handleFavorites: React.MouseEventHandler<HTMLButtonElement>,
+  handleFavorites: (event: React.MouseEvent<HTMLButtonElement>, value: boolean) => void,
   isFavorite: boolean
 }
 
@@ -21,13 +21,13 @@ const Header: React.FC<Props> = ({ handleFavorites, isFavorite }) => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <button
-          onClick={() => handleFavorites(false)}
+          onClick={(event) => handleFavorites(event, false)}
           className={`${styles['nav-item']} ${!isFavorite && styles['nav-item-selected']}`}
         >
           All
         </button>
         <button
-          onClick={() => handleFavorites(true)}
+          onClick={(event) => handleFavorites(event, true)}
           className={`${styles['nav-item']} ${isFavorite && styles['nav-item-selected']}`}
         >
           Favorites

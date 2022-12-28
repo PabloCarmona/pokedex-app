@@ -15,7 +15,7 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header isFavorite={isFavorite} handleFavorites={(event) => setIsFavorite(event)} />
+      <Header isFavorite={isFavorite} handleFavorites={(event, value) => setIsFavorite(value)} />
       <List isFavorite={isFavorite} />
     </>
   )
