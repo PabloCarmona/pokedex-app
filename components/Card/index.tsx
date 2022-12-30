@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 import Favorite from '../Favorite'
-import type { Pokemon } from '../../types'
 import styles from './Card.module.css'
+import type { Pokemon } from '../../types'
 
-type Props = {
+interface Props {
   data: Pokemon
 }
 
@@ -16,11 +16,11 @@ const Card: React.FC<Props> = ({ data }) => {
     <div className={styles.card}>
       <div className={styles['image-wrapper']}>
         <Image
-          className={styles.image}
-          src={data.image}
           alt={`An image of a ${data.name}`}
-          width={500}
+          className={styles.image}
           height={500}
+          src={data.image}
+          width={500}
         />
       </div>
       <div className={styles.info}>

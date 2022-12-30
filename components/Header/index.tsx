@@ -5,15 +5,27 @@ import styles from './Header.module.css'
 import { PokemonTypes } from '../../types'
 import { fetchTypes } from '../../utils/api'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
+import Close from '../Icons/Close'
 
 interface Props {
-  handleFavorites: (event: React.MouseEvent<HTMLButtonElement>, value: boolean) => void,
-  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  isFavorite: boolean,
+  handleFavorites: (event: React.MouseEvent<HTMLButtonElement>, value: boolean) => void
+  handlePokemonType: (
+    event: React.ChangeEvent<HTMLSelectElement> | React.MouseEvent<HTMLButtonElement>
+  ) => void
+  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
+  isFavorite: boolean
+  pokemonType: string
   search: string
 }
 
-const Header: React.FC<Props> = ({ handleFavorites, handleSearch, isFavorite, search }) => {
+const Header: React.FC<Props> = ({
+  handleFavorites,
+  handlePokemonType,
+  handleSearch,
+  isFavorite,
+  pokemonType,
+  search,
+}) => {
   const { data: types }: UseQueryResult<PokemonTypes> = useQuery({
     queryKey: ['types'],
     queryFn: fetchTypes,
@@ -45,16 +57,33 @@ const Header: React.FC<Props> = ({ handleFavorites, handleSearch, isFavorite, se
           value={search}
           onChange={(event) => handleSearch(event)}
         />
-        <select className={styles.select} name="type" id="type-select" defaultValue={'default'}>
-          <option value={'default'} disabled>
-            Type
-          </option>
-          {types?.map((type: string) => (
-            <option key={crypto.randomUUID()} value={type}>
-              {type}
+        <div className={styles['select-wrapper']}>
+          {pokemonType && (
+            <button
+              className={styles['select-clear-btn']}
+              onClick={(event) => handlePokemonType(event)}
+              type="button"
+            >
+              <Close />
+            </button>
+          )}
+          <select
+            className={styles.select}
+            id="type-select"
+            name="type"
+            onChange={(event) => handlePokemonType(event)}
+            value={pokemonType || 'default'}
+          >
+            <option value={'default'} disabled>
+              Type
             </option>
-          ))}
-        </select>
+            {types?.map((type: string) => (
+              <option key={crypto.randomUUID()} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
         <Grid className={styles['view-controls']} />
         <Menu className={styles['view-controls']} />
       </form>

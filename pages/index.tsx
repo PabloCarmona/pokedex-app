@@ -6,6 +6,7 @@ import Header from '../components/Header'
 export default function Home(): JSX.Element {
   const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
   const [search, setSearch] = React.useState<string>('')
+  const [pokemonType, setPokemonType] = React.useState<string>('')
 
   return (
     <>
@@ -17,12 +18,14 @@ export default function Home(): JSX.Element {
       </Head>
 
       <Header
-        isFavorite={isFavorite}
         handleFavorites={(event, value) => setIsFavorite(value)}
+        handlePokemonType={(event) => setPokemonType(event.target.value)}
         handleSearch={(event) => setSearch(event.target.value)}
+        isFavorite={isFavorite}
+        pokemonType={pokemonType}
         search={search}
       />
-      <List isFavorite={isFavorite} search={search} />
+      <List isFavorite={isFavorite} search={search} pokemonType={pokemonType} />
     </>
   )
 }

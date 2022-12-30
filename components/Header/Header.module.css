@@ -41,13 +41,28 @@
   font-size: .8rem;
 }
 
+.select-wrapper {
+  align-items: center;
+  background-color: rgb(236, 236, 236);
+  display: flex;
+  position: relative;
+}
+
+.select-clear-btn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 20px;
+}
+
 .select {
   background-color: rgb(236, 236, 236);
+  border-right: .25rem solid transparent;
   border: none;
-  padding: .25rem;
   font-family: inherit;
   font-size: .8rem;
-  border-right: .25rem solid transparent;
+  padding: .25rem;
+  width: 100%;
 }
 
 .view-controls {

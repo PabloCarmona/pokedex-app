@@ -7,15 +7,16 @@ import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 interface Props {
-  isFavorite: boolean,
+  isFavorite: boolean
+  pokemonType: string
   search: string
 }
 
-const List: React.FC<Props> = ({ isFavorite, search }) => {
+const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ['pokemons', isFavorite, search],
-      queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search),
+      queryKey: ['pokemons', isFavorite, search, pokemonType],
+      queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search, pokemonType),
       getNextPageParam: (lastPage, pages) =>
         lastPage.items.length && pages.length ? lastPage.offset + 10 : undefined,
     })
