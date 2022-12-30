@@ -19,7 +19,7 @@ export default function Home(): JSX.Element {
 
       <Header
         handleFavorites={(event, value) => setIsFavorite(value)}
-        handlePokemonType={(event) => setPokemonType(event.target.value)}
+        handlePokemonType={(event) => setPokemonType((event.target as HTMLSelectElement).value)}
         handleSearch={(event) => setSearch(event.target.value)}
         isFavorite={isFavorite}
         pokemonType={pokemonType}
