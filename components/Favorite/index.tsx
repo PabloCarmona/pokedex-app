@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 
-const Favorite: React.FC = () => {
-  const [favorite, setFavorite] = useState(false)
+interface Props {
+  isFavorite: boolean
+}
+
+const Favorite: React.FC<Props> = ({ isFavorite }) => {
+  const [favorite, setFavorite] = useState(isFavorite)
   return favorite ? (
     <svg style={{ cursor: 'pointer' }} onClick={() => setFavorite(false)} id="icon" x="0px" y="0px" width="16" height="16" viewBox="0 0 32 32" fill="#ff0001">
       <path
