@@ -5,6 +5,7 @@ import Header from '../components/Header'
 
 export default function Home(): JSX.Element {
   const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
+  const [search, setSearch] = React.useState<string>('')
 
   return (
     <>
@@ -15,8 +16,13 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header isFavorite={isFavorite} handleFavorites={(event, value) => setIsFavorite(value)} />
-      <List isFavorite={isFavorite} />
+      <Header
+        isFavorite={isFavorite}
+        handleFavorites={(event, value) => setIsFavorite(value)}
+        handleSearch={(event) => setSearch(event.target.value)}
+        search={search}
+      />
+      <List isFavorite={isFavorite} search={search} />
     </>
   )
 }

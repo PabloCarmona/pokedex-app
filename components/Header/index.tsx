@@ -8,10 +8,12 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
 interface Props {
   handleFavorites: (event: React.MouseEvent<HTMLButtonElement>, value: boolean) => void,
-  isFavorite: boolean
+  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  isFavorite: boolean,
+  search: string
 }
 
-const Header: React.FC<Props> = ({ handleFavorites, isFavorite }) => {
+const Header: React.FC<Props> = ({ handleFavorites, handleSearch, isFavorite, search }) => {
   const { data: types }: UseQueryResult<PokemonTypes> = useQuery({
     queryKey: ['types'],
     queryFn: fetchTypes,
@@ -40,6 +42,8 @@ const Header: React.FC<Props> = ({ handleFavorites, isFavorite }) => {
           name="search"
           id="search-input"
           placeholder="Search"
+          value={search}
+          onChange={(event) => handleSearch(event)}
         />
         <select className={styles.select} name="type" id="type-select" defaultValue={'default'}>
           <option value={'default'} disabled>
