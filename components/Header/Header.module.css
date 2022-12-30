@@ -44,6 +44,7 @@
 .select-wrapper {
   align-items: center;
   background-color: rgb(236, 236, 236);
+  border-right: .25rem solid transparent;
   display: flex;
   position: relative;
 }
@@ -52,12 +53,12 @@
   background-color: transparent;
   border: none;
   position: absolute;
-  right: 20px;
+  right: 15px;
+  cursor: pointer;
 }
 
 .select {
   background-color: rgb(236, 236, 236);
-  border-right: .25rem solid transparent;
   border: none;
   font-family: inherit;
   font-size: .8rem;
