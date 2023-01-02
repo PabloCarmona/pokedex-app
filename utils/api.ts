@@ -9,7 +9,9 @@ export const fetchPokemons = async (
 ) => {
   try {
     const res = await axios.get(
-      `${API_URL}/pokemon?offset=${pageParam}&isFavorite=${isFavorite}&type=${pokemonType}&search=${search}`
+      `${API_URL}/pokemon?offset=${pageParam}${
+        isFavorite && '&isFavorite=true'
+      }&type=${pokemonType}&search=${search}`
     )
     return res.data
   } catch (error) {
