@@ -1,4 +1,5 @@
 import React from 'react'
+import { Pokemon } from '../../types'
 import { toggleFavoritePokemon } from '../../utils/api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -8,9 +9,9 @@ interface Props {
 }
 
 const filterPokemons = (old: any, pokemonMutated: string) => {
-  old.pages.map(page => page.items)
-    .flatMap(items => items)
-    .filter(pokemon => pokemon.id !== pokemonMutated)
+  old.pages.map((page: any) => page.items)
+    .flatMap((items: Array<Pokemon>) => items)
+    .filter((pokemon: Pokemon) => pokemon.id !== pokemonMutated)
 }
 
 
