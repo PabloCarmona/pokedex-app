@@ -1,17 +1,56 @@
 import React from 'react'
+import { toggleFavoritePokemon } from '../../utils/api'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
   isFavorite: boolean
+  pokemonId: string
 }
 
-const Favorite: React.FC<Props> = ({ isFavorite }) => {
+const filterPokemons = (old: any, pokemonMutated: string) => {
+  old.pages.map(page => page.items)
+    .flatMap(items => items)
+    .filter(pokemon => pokemon.id !== pokemonMutated)
+}
+
+
+const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
+  const queryClient = useQueryClient()
   const [favorite, setFavorite] = React.useState(isFavorite)
+  const favoritePokemon = useMutation({
+    mutationKey: ['favorite'],
+    mutationFn: (pokemonId: string) => toggleFavoritePokemon(pokemonId, 'favorite'),
+    onMutate: async (pokemonMutated) => {
+      setFavorite(true)
+      await queryClient.cancelQueries({ queryKey: ['pokemons', false, '', ''] })
+      const previousPokemons = queryClient.getQueryData(['pokemons', false, '', ''])
+      queryClient.setQueryData(['pokemons', false, '', ''], (old) => filterPokemons(old, pokemonMutated))
+      return { previousPokemons }
+    },
+    onSuccess: () => queryClient.refetchQueries({ queryKey: ['pokemons', false, '', ''] })
+  })
+  const unfavoritePokemon = useMutation({
+    mutationKey: ['unfavorite'],
+    mutationFn: (pokemonId: string) => toggleFavoritePokemon(pokemonId, 'unfavorite'),
+    onMutate: async (pokemonMutated) => {
+      setFavorite(false)
+      await queryClient.cancelQueries({ queryKey: ['pokemons', true, '', ''] })
+      const previousPokemons = queryClient.getQueryData(['pokemons', true, '', ''])
+      queryClient.setQueryData(['pokemons', true, '', ''], (old) => filterPokemons(old, pokemonMutated))
+      return { previousPokemons }
+    },
+    onSuccess: async (data) => {
+      queryClient.refetchQueries({ queryKey: ['pokemons', true, '', ''] })
+    }
+  })
   return favorite ? (
     <svg
       fill="#ff0001"
       height="16"
       id="icon"
-      onClick={() => setFavorite(false)}
+      onClick={() => {
+        unfavoritePokemon.mutate(pokemonId)
+      }}
       style={{ cursor: 'pointer' }}
       viewBox="0 0 32 32"
       width="16"
@@ -29,7 +68,9 @@ const Favorite: React.FC<Props> = ({ isFavorite }) => {
         fill="#ff0001"
         height="16"
         id="icon"
-        onClick={() => setFavorite(true)}
+        onClick={() => {
+          favoritePokemon.mutate(pokemonId)
+        }}
         style={{ cursor: 'pointer' }}
         viewBox="0 0 32 32"
         width="16"

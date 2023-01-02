@@ -25,3 +25,15 @@ export const fetchTypes = async () => {
     console.error(error)
   }
 }
+
+export const toggleFavoritePokemon = async (
+  pokemonId: string,
+  action: 'favorite' | 'unfavorite'
+) => {
+  try {
+    const res = await axios.post(`${API_URL}/pokemon/${pokemonId}/${action}`)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}

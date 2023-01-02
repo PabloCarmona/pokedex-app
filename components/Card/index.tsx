@@ -28,7 +28,7 @@ const Card: React.FC<Props> = ({ data }) => {
           <p className={styles.name}>{data.name}</p>
           <p className={styles.types}>{renderTypes(data.types)}</p>
         </div>
-        <Favorite isFavorite={data.isFavorite} />
+        <Favorite isFavorite={data.isFavorite} pokemonId={data.id} />
       </div>
     </div>
   )
