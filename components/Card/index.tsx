@@ -6,14 +6,15 @@ import type { Pokemon } from '../../types'
 
 interface Props {
   data: Pokemon
+  viewMode: string
 }
 
 const renderTypes = (types: Array<string>): string =>
   types.length > 1 ? types.join(', ') : types.join('')
 
-const Card: React.FC<Props> = ({ data }) => {
+const Card: React.FC<Props> = ({ data, viewMode }) => {
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${styles[viewMode]}`}>
       <div className={styles['image-wrapper']}>
         <Image
           alt={`An image of a ${data.name}`}

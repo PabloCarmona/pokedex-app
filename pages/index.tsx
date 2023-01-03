@@ -7,6 +7,7 @@ export default function Home(): JSX.Element {
   const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
   const [search, setSearch] = React.useState<string>('')
   const [pokemonType, setPokemonType] = React.useState<string>('')
+  const [viewMode, setViewMode] = React.useState<string>('grid')
 
   return (
     <>
@@ -21,11 +22,12 @@ export default function Home(): JSX.Element {
         handleFavorites={(event, value) => setIsFavorite(value)}
         handlePokemonType={(event) => setPokemonType((event.target as HTMLSelectElement).value)}
         handleSearch={(event) => setSearch(event.target.value)}
+        handleViewMode={(event, value) => setViewMode(value)}
         isFavorite={isFavorite}
         pokemonType={pokemonType}
         search={search}
       />
-      <List isFavorite={isFavorite} search={search} pokemonType={pokemonType} />
+      <List isFavorite={isFavorite} search={search} pokemonType={pokemonType} viewMode={viewMode} />
     </>
   )
 }

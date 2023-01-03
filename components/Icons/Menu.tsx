@@ -2,9 +2,10 @@ import React from 'react'
 
 type Props = {
   className?: string
+  onClick?: (event?: React.MouseEvent<SVGSVGElement>) => void
 }
 
-const Menu: React.FC<Props> = ({ className }) => (
+const Menu: React.FC<Props> = ({ className, onClick }) => (
   <svg
     id="menu-icon"
     xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +14,7 @@ const Menu: React.FC<Props> = ({ className }) => (
     height={20}
     fill="none"
     className={className}
+    onClick={onClick}
   >
     <rect fill="#ca3317" x="4" y="6" width="24" height="2" />
     <rect fill="#ca3317" x="4" y="24" width="24" height="2" />

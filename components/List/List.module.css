@@ -1,9 +1,17 @@
-.list {
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   padding: 1.2rem;
   place-items: center;
   gap: 0.625rem;
+  list-style-type: none;
+}
+
+.list {
+  display: flex;
+  gap: 0.625rem;
+  flex-direction: column;
+  padding: 1.2rem;
   list-style-type: none;
 }
 

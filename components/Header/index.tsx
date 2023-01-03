@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactComponentElement } from 'react'
 import Grid from '../Icons/Grid'
 import Menu from '../Icons/Menu'
 import styles from './Header.module.css'
@@ -13,6 +13,7 @@ interface Props {
     event: React.ChangeEvent<HTMLSelectElement> | React.MouseEvent<HTMLButtonElement>
   ) => void
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleViewMode: (event: React.MouseEvent<SVGSVGElement> | undefined, value: string) => void
   isFavorite: boolean
   pokemonType: string
   search: string
@@ -22,6 +23,7 @@ const Header: React.FC<Props> = ({
   handleFavorites,
   handlePokemonType,
   handleSearch,
+  handleViewMode,
   isFavorite,
   pokemonType,
   search,
@@ -84,8 +86,8 @@ const Header: React.FC<Props> = ({
             ))}
           </select>
         </div>
-        <Grid className={styles['view-controls']} />
-        <Menu className={styles['view-controls']} />
+        <Grid className={styles['view-controls']} onClick={(event) => handleViewMode(event, 'grid')} />
+        <Menu className={styles['view-controls']} onClick={(event) => handleViewMode(event, 'list')} />
       </form>
     </header>
   )

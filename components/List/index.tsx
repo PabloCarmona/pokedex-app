@@ -10,9 +10,10 @@ interface Props {
   isFavorite: boolean
   pokemonType: string
   search: string
+  viewMode: string
 }
 
-const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
+const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ['pokemons', isFavorite, search, pokemonType],
@@ -39,12 +40,12 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
           There was an error while loading Pokedex. Refresh the page.
         </div>
       ) : (
-        <ul className={styles.list}>
+            <ul className={styles[viewMode]}>
               {data?.pages.map((page) => (
             <React.Fragment key={crypto.randomUUID()}>
               {page.items.map((item: Pokemon) => (
                 <li key={item.id}>
-                  <Card data={item} />
+                  {<Card data={item} viewMode={viewMode} />}
                 </li>
               ))}
             </React.Fragment>

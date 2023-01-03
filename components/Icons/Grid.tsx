@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 
 type Props = {
-  className?: string
+  className?: string,
+  onClick?: (event?: React.MouseEvent<SVGSVGElement>) => void
 }
 
-const Grid: React.FC<Props> = ({ className }) => (
+const Grid: React.FC<Props> = ({ className, onClick }) => (
   <svg
     id="grid-icon"
     xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +14,7 @@ const Grid: React.FC<Props> = ({ className }) => (
     width={20}
     height={20}
     className={className}
+    onClick={onClick}
   >
     <path
       fill="#ca3317"
