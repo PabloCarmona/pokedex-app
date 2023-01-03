@@ -1,10 +1,11 @@
 import React from 'react'
 import Card from '../Card'
+import Spinner from '../Spinner'
 import styles from './List.module.css'
-import type { Pokemon } from '../../types'
+import type { Page, Pokemon } from '../../types'
 import { fetchPokemons } from '../../utils/api'
 import { useInView } from 'react-intersection-observer'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
 
 interface Props {
   isFavorite: boolean
@@ -16,13 +17,20 @@ interface Props {
 const PAGINATION = 10
 
 const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) => {
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
-    useInfiniteQuery({
-      queryKey: ['pokemons', isFavorite, search, pokemonType],
-      queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search, pokemonType),
-      getNextPageParam: (lastPage, pages) =>
-        lastPage?.items?.length && pages.length ? lastPage.offset + PAGINATION : undefined,
-    })
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  }: UseInfiniteQueryResult<Page, Error> = useInfiniteQuery({
+    queryKey: ['pokemons', isFavorite, search, pokemonType],
+    queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search, pokemonType),
+    getNextPageParam: (lastPage, pages) =>
+      lastPage?.items?.length && pages.length ? lastPage.offset + PAGINATION : undefined,
+  })
 
   const { ref, inView } = useInView()
 
@@ -36,10 +44,15 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
   return (
     <>
       {status === 'loading' || (isFetching && !isFetchingNextPage) ? (
-        <div className={styles.loading}>Loading pokedex...</div>
+        <div className={styles.loading}>
+          <Spinner className={styles['main-spinner']} />
+          <p>Loading pokedex...</p>
+        </div>
       ) : status === 'error' ? (
         <div className={styles.error}>
-          There was an error while loading Pokedex. Refresh the page.
+            <p>There was an error while loading Pokedex:</p>
+            <p>{error.message}</p>
+            <p>Refresh the page.</p>
         </div>
       ) : (
             <ul className={styles[viewMode]}>
@@ -50,7 +63,17 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
               ))}
             </React.Fragment>
           ))}
-          <li id="last_list_element" ref={ref}></li>
+              <li id="last_list_element" ref={ref}>
+                {hasNextPage && (
+                  <button
+                    disabled={isFetchingNextPage || !hasNextPage}
+                    onClick={() => fetchNextPage({ cancelRefetch: true })}
+                    className={styles['load-more-btn']}
+                  >
+                    {isFetchingNextPage ? <Spinner /> : 'Load More'}
+                  </button>
+                )}
+              </li>
         </ul>
       )}
     </>
