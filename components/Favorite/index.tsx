@@ -1,51 +1,67 @@
-import React from 'react'
-import { Pokemon } from '../../types'
-import { toggleFavoritePokemon } from '../../utils/api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import React from 'react'
+import { Page, Pokemon } from '../../types'
+import { toggleFavoritePokemon } from '../../utils/api'
 
 interface Props {
   isFavorite: boolean
   pokemonId: string
 }
 
-const filterPokemons = (old: any, pokemonMutated: string) => {
-  old.pages.map((page: any) => page.items)
-    .flatMap((items: Array<Pokemon>) => items)
-    .filter((pokemon: Pokemon) => pokemon.id !== pokemonMutated)
-}
-
+interface InfiniteQueryPages { pageParams: Array<any>, pages: Array<Page> }
 
 const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
   const queryClient = useQueryClient()
   const [favorite, setFavorite] = React.useState(isFavorite)
-  const favoritePokemon = useMutation({
-    mutationKey: ['favorite'],
-    mutationFn: (pokemonId: string) => toggleFavoritePokemon(pokemonId, 'favorite'),
-    onSuccess: () => queryClient.refetchQueries({ queryKey: ['pokemons', false, '', ''] })
+  const favoritePokemonMutation = useMutation({
+    mutationFn: (id: string) => {
+      setFavorite(!favorite)
+      return toggleFavoritePokemon(id, 'favorite')
+    },
   })
-  const unfavoritePokemon = useMutation({
-    mutationKey: ['unfavorite'],
-    mutationFn: (pokemonId: string) => toggleFavoritePokemon(pokemonId, 'unfavorite'),
-    onMutate: async (pokemonMutated) => {
-      setFavorite(false)
-      await queryClient.cancelQueries({ queryKey: ['pokemons', true, '', ''] })
-      const previousPokemons = queryClient.getQueryData(['pokemons', true, '', ''])
-      queryClient.setQueryData(['pokemons', true, '', ''], (old) => filterPokemons(old, pokemonMutated))
+  const unFavoritePokemonMutation = useMutation({
+    mutationFn: (id: string) => {
+      setFavorite(!favorite)
+      return toggleFavoritePokemon(id, 'unfavorite')
+    },
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries({ queryKey: ['pokemons'] })
+      const previousPokemons: InfiniteQueryPages | undefined = queryClient.getQueryData(['pokemons', true, '', ''])
+      const newPokemonsArray = previousPokemons?.pages.map(
+        ({
+          limit,
+          offset,
+          count,
+          items,
+        }: {
+          limit: number
+          offset: number
+          count: number
+          items: Array<Pokemon>
+        }) => {
+          const itemsUpdated = items.filter((item: Pokemon) => item.id !== variables)
+          return { limit, offset, count, items: itemsUpdated }
+        }
+      )
+      queryClient.setQueryData<unknown>(['pokemons', true, '', ''], (data: InfiniteQueryPages) => ({
+        pages: newPokemonsArray,
+        pageParams: data?.pageParams,
+      }))
+
       return { previousPokemons }
     },
-    onSuccess: async (data) => {
-      queryClient.refetchQueries({ queryKey: ['pokemons', true, '', ''] })
-    }
+    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['pokemons'] })
   })
   return favorite ? (
     <svg
       fill="#ff0001"
       height="16"
       id="icon"
-      onClick={() => {
-        unfavoritePokemon.mutate(pokemonId)
+      onClick={() => unFavoritePokemonMutation.mutate(pokemonId)}
+      style={{
+        cursor: 'pointer',
+        pointerEvents: favoritePokemonMutation.isLoading ? 'none' : 'auto',
       }}
-      style={{ cursor: 'pointer' }}
       viewBox="0 0 32 32"
       width="16"
       x="0px"
@@ -62,10 +78,11 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
         fill="#ff0001"
         height="16"
         id="icon"
-        onClick={() => {
-          favoritePokemon.mutate(pokemonId)
+        onClick={() => favoritePokemonMutation.mutate(pokemonId)}
+        style={{
+          cursor: 'pointer',
+          pointerEvents: favoritePokemonMutation.isLoading ? 'none' : 'auto',
         }}
-        style={{ cursor: 'pointer' }}
         viewBox="0 0 32 32"
         width="16"
       >

@@ -18,7 +18,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
       queryKey: ['pokemons', isFavorite, search, pokemonType],
       queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search, pokemonType),
       getNextPageParam: (lastPage, pages) =>
-        lastPage.items.length && pages.length ? lastPage.offset + 10 : undefined,
+        lastPage?.items?.length && pages.length ? lastPage.offset + 10 : undefined,
     })
 
   const { ref, inView } = useInView()
@@ -32,7 +32,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
 
   return (
     <>
-      {status === 'loading' ? (
+      {status === 'loading' || isFetching ? (
         <div className={styles.loading}>Loading pokedex...</div>
       ) : status === 'error' ? (
         <div className={styles.error}>

@@ -8,3 +8,10 @@ export type Pokemon = {
 }
 
 export type PokemonTypes = Array<string>
+
+export interface Page {
+  limit: number
+  offset: number
+  count: number
+  items: Array<Pokemon>
+}
