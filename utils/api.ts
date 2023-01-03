@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { API_URL } from './constants'
+
+const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
 
 export const fetchPokemons = async (
   { pageParam = 0 },

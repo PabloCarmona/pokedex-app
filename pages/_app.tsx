@@ -7,15 +7,15 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '600']
+  weight: ['300', '400', '600'],
 })
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      refetchOnMount: false
-    }
-  }
+      refetchOnMount: false,
+    },
+  },
 })
 
 export default function App({ Component, pageProps }: AppProps) {

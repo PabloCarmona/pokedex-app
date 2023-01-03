@@ -13,13 +13,15 @@ interface Props {
   viewMode: string
 }
 
+const PAGINATION = 10
+
 const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ['pokemons', isFavorite, search, pokemonType],
       queryFn: (pageParam) => fetchPokemons(pageParam, isFavorite, search, pokemonType),
       getNextPageParam: (lastPage, pages) =>
-        lastPage?.items?.length && pages.length ? lastPage.offset + 10 : undefined,
+        lastPage?.items?.length && pages.length ? lastPage.offset + PAGINATION : undefined,
     })
 
   const { ref, inView } = useInView()
@@ -33,7 +35,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
 
   return (
     <>
-      {status === 'loading' || isFetching && !isFetchingNextPage ? (
+      {status === 'loading' || (isFetching && !isFetchingNextPage) ? (
         <div className={styles.loading}>Loading pokedex...</div>
       ) : status === 'error' ? (
         <div className={styles.error}>
@@ -44,9 +46,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
               {data?.pages.map((page) => (
             <React.Fragment key={crypto.randomUUID()}>
               {page.items.map((item: Pokemon) => (
-                <li key={item.id}>
-                  {<Card data={item} viewMode={viewMode} />}
-                </li>
+                <li key={item.id}>{<Card data={item} viewMode={viewMode} />}</li>
               ))}
             </React.Fragment>
           ))}

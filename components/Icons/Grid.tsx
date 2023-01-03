@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react'
 
 type Props = {
-  className?: string,
+  className?: string
   onClick?: (event?: React.MouseEvent<SVGSVGElement>) => void
 }
 

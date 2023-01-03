@@ -15,3 +15,8 @@ export interface Page {
   count: number
   items: Array<Pokemon>
 }
+
+export interface InfiniteQueryPages {
+  pageParams: Array<any>
+  pages: Array<Page>
+}

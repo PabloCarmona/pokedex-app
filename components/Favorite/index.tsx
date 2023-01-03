@@ -1,14 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
-import { Page, Pokemon } from '../../types'
 import { toggleFavoritePokemon } from '../../utils/api'
+import { InfiniteQueryPages, Pokemon } from '../../types'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
   isFavorite: boolean
   pokemonId: string
 }
-
-interface InfiniteQueryPages { pageParams: Array<any>, pages: Array<Page> }
 
 const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
   const queryClient = useQueryClient()
@@ -26,7 +24,12 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
     },
     onMutate: async (variables) => {
       await queryClient.cancelQueries({ queryKey: ['pokemons'] })
-      const previousPokemons: InfiniteQueryPages | undefined = queryClient.getQueryData(['pokemons', true, '', ''])
+      const previousPokemons: InfiniteQueryPages | undefined = queryClient.getQueryData([
+        'pokemons',
+        true,
+        '',
+        '',
+      ])
       const newPokemonsArray = previousPokemons?.pages.map(
         ({
           limit,
@@ -50,7 +53,6 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
 
       return { previousPokemons }
     },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['pokemons'] })
   })
   return favorite ? (
     <svg

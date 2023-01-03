@@ -4,10 +4,10 @@ import List from '../components/List'
 import Header from '../components/Header'
 
 export default function Home(): JSX.Element {
-  const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
   const [search, setSearch] = React.useState<string>('')
-  const [pokemonType, setPokemonType] = React.useState<string>('')
   const [viewMode, setViewMode] = React.useState<string>('grid')
+  const [pokemonType, setPokemonType] = React.useState<string>('')
+  const [isFavorite, setIsFavorite] = React.useState<boolean>(false)
 
   return (
     <>

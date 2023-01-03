@@ -1,11 +1,11 @@
-import React, { ReactComponentElement } from 'react'
+import React from 'react'
 import Grid from '../Icons/Grid'
 import Menu from '../Icons/Menu'
+import Close from '../Icons/Close'
 import styles from './Header.module.css'
 import { PokemonTypes } from '../../types'
 import { fetchTypes } from '../../utils/api'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import Close from '../Icons/Close'
 
 interface Props {
   handleFavorites: (event: React.MouseEvent<HTMLButtonElement>, value: boolean) => void
@@ -86,8 +86,14 @@ const Header: React.FC<Props> = ({
             ))}
           </select>
         </div>
-        <Grid className={styles['view-controls']} onClick={(event) => handleViewMode(event, 'grid')} />
-        <Menu className={styles['view-controls']} onClick={(event) => handleViewMode(event, 'list')} />
+        <Grid
+          className={styles['view-controls']}
+          onClick={(event) => handleViewMode(event, 'grid')}
+        />
+        <Menu
+          className={styles['view-controls']}
+          onClick={(event) => handleViewMode(event, 'list')}
+        />
       </form>
     </header>
   )
