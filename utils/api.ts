@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 const API_URL = 'https://q-exercise-api.o64ixruq9hj.us-south.codeengine.appdomain.cloud/api/rest'
 
@@ -17,6 +17,15 @@ export const fetchPokemons = async (
     return res.data
   } catch (error) {
     console.error(error)
+  }
+}
+
+export const fetchPokemon = async (id = '') => {
+  try {
+    const res = await axios.get(`${API_URL}/pokemon/${id}`)
+    return res.data
+  } catch (error) {
+    return (error as AxiosError).response
   }
 }
 

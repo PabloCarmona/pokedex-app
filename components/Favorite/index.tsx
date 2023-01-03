@@ -6,9 +6,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 interface Props {
   isFavorite: boolean
   pokemonId: string
+  _ref?: React.RefObject<SVGSVGElement | any>
 }
 
-const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
+const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref }) => {
   const queryClient = useQueryClient()
   const [favorite, setFavorite] = React.useState(isFavorite)
   const favoritePokemonMutation = useMutation({
@@ -56,6 +57,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
   })
   return favorite ? (
     <svg
+      ref={_ref}
       fill="#ff0001"
       height="16"
       id="icon"
@@ -77,6 +79,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId }) => {
     </svg>
   ) : (
       <svg
+        ref={_ref}
         fill="#ff0001"
         height="16"
         id="icon"
