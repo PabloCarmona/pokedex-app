@@ -1,10 +1,11 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, 150px);
   padding: 1.2rem;
   place-items: center;
   gap: 0.625rem;
   list-style-type: none;
+  justify-content: center;
 }
 
 .list {
