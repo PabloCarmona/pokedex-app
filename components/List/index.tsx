@@ -32,7 +32,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType }) => {
 
   return (
     <>
-      {status === 'loading' || isFetching ? (
+      {status === 'loading' || isFetching && !isFetchingNextPage ? (
         <div className={styles.loading}>Loading pokedex...</div>
       ) : status === 'error' ? (
         <div className={styles.error}>
