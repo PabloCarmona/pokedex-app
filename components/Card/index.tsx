@@ -21,7 +21,7 @@ const Card: React.FC<Props> = ({ data, viewMode }) => {
   }
 
   return (
-    <div className={`${styles.card} ${viewMode && styles[viewMode]}`} onClick={handleLocation}>
+    <article className={`${styles.card} ${viewMode && styles[viewMode]}`} onClick={handleLocation}>
       <div className={styles['image-wrapper']}>
         <Image
           alt={`An image of a ${data.name}`}
@@ -38,7 +38,7 @@ const Card: React.FC<Props> = ({ data, viewMode }) => {
         </div>
         <Favorite _ref={favoriteRef} isFavorite={data.isFavorite} pokemonId={data.id} />
       </div>
-    </div>
+    </article>
   )
 }
 

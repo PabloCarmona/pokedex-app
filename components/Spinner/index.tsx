@@ -1,7 +1,3 @@
-/*
-  This loader files here are released under CC0 License
-  Get it from https://loading.io/css/ 
-*/
 import React from 'react'
 import styles from './Spinner.module.css'
 
