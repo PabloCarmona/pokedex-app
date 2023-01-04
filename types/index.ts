@@ -18,7 +18,7 @@ export type PokemonDetail = Pokemon & {
   maxHP: number
   weight: Dimensions
   height: Dimensions
-  evolutions: Array<Pokemon>
+  evolutions: Array<Pokemon> | []
   previousEvolutions: Array<Pokemon> | []
 }
 

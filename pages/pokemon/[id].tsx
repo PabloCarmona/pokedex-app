@@ -1,7 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Card from '../../components/Card'
 import { PokemonDetail } from '../../types'
 import { fetchPokemon } from '../../utils/api'
 import Spinner from '../../components/Spinner'
@@ -52,7 +54,8 @@ export default function DetailPage(): JSX.Element {
         </div>
       ) : (
         <section className={styles.main}>
-              <article className={styles['detail-section']}>
+              <Link className={styles.link} href='/'>Go back home</Link>
+              <section className={styles['detail-section']}>
             <div className={styles['image-wrapper']}>
               <Image
                 alt={`An image of a ${data.name}`}
@@ -108,7 +111,16 @@ export default function DetailPage(): JSX.Element {
                     </article>
                   </section>
                 </footer>
-              </article>
+              </section>
+              {(data.evolutions.length || data.previousEvolutions.length) ? (
+                <section className={styles.evolutions}>
+                  <h2>Evolutions</h2>
+                  <section className={styles['evolutions-list']}>
+                    {data.previousEvolutions.map(pokemon => <Card key={pokemon.id} data={pokemon} />).reverse()}
+                    {data.evolutions.map(pokemon => <Card key={pokemon.id} data={pokemon} />)}
+                  </section>
+                </section>
+              ) : null}
             </section>
       )}
     </>
