@@ -85,13 +85,14 @@
 
 .statistic p {
   font-weight: 600;
+  flex-basis: 80px;
+  text-align: right;
 }
 
 .statistics-bar {
   height: 10px;
   flex: 1;
   border-radius: 25px;
-  margin-right: 10px;
 }
 
 .statistics-bar-cp {
