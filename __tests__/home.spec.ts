@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('home page', () => {
+test.describe.parallel('home page', () => {
   test.use({
     viewport: { width: 530, height: 900 },
   })
