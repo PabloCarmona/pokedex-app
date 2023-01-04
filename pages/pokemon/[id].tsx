@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import { fetchPokemon } from '../../utils/api'
 import Spinner from '../../components/Spinner'
 import { useQuery } from '@tanstack/react-query'
+import Favorite from '../../components/Favorite'
 import { renderTypes } from '../../utils/commons'
 import Volume from '../../components/Icons/Volume'
 import styles from '../../styles/DetailPage.module.css'
-import Favorite from '../../components/Favorite'
 
 export default function DetailPage(): JSX.Element {
   const { id } = useRouter().query
@@ -30,14 +30,14 @@ export default function DetailPage(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {
-        status === 'loading' || isFetching ? (
-          <div className={styles.loading}>
-            <Spinner className={styles['main-spinner']} />
-            <p>Retrieving pokemon data...</p>
-          </div>
-        ) : (
-          <section className={styles.main}>
+      {status === 'loading' || isFetching ? (
+        <section className={styles.loading}>
+          <Spinner className={styles['main-spinner']} />
+          <p>Retrieving pokemon data...</p>
+        </section>
+      ) : (
+        <section className={styles.main}>
+            <article className={styles['detail-section']}>
             <div className={styles['image-wrapper']}>
               <Image
                 alt={`An image of a ${data.name}`}
@@ -47,31 +47,47 @@ export default function DetailPage(): JSX.Element {
                 width={500}
               />
             </div>
-            <Volume onClick={() => playSound(data.sound)} />
-            <Favorite isFavorite={data.isFavorite} pokemonId={data.id} />
-            <section className={styles.info}>
-              <article>
-                <h1>{data.name}</h1>
-                <p>{renderTypes(data.types)}</p>
-              </article>
-              <article className={styles.statistics}>
-                <p>CP: {data.maxCP}</p>
-                <p>HP: {data.maxHP}</p>
-              </article>
-            </section>
-            <section>
-              <article>
-                <p>Weight</p>
-                <p>{data.weight.minimum} - {data.weight.maximum}</p>
-              </article>
-              <article>
-                <p>Height</p>
-                <p>{data.height.minimum} - {data.height.maximum}</p>
-              </article>
-            </section>
+              <section className={styles.controls}>
+                <Volume onClick={() => playSound(data.sound)} className={styles.volume} />
+              </section>
+              <footer className={styles.footer}>
+                <section className={styles.info}>
+                  <section>
+                    <h1 className={styles['info-heading']}>{data.name}</h1>
+                    <p>{renderTypes(data.types)}</p>
+                  </section>
+                  <section>
+                    <Favorite isFavorite={data.isFavorite} pokemonId={data.id} className={styles['favorite-icon']} />
+                  </section>
+                </section>
+                <section className={styles.statistics}>
+                  <article className={styles.statistic}>
+                    <div className={`${styles['statistics-bar']} ${styles['statistics-bar-cp']}`}></div>
+                    <p >CP: {data.maxCP}</p>
+                  </article>
+                  <article className={styles.statistic}>
+                    <div className={`${styles['statistics-bar']} ${styles['statistics-bar-hp']}`}></div>
+                    <p>HP: {data.maxHP}</p>
+                  </article>
+                </section>
+                <section className={styles.dimensions}>
+                  <article>
+                    <h2 className={styles['dimensions-heading']}>Weight</h2>
+                    <p>
+                      {data.weight.minimum} - {data.weight.maximum}
+                    </p>
+                  </article>
+                  <article>
+                    <h2 className={styles['dimensions-heading']}>Height</h2>
+                    <p>
+                      {data.height.minimum} - {data.height.maximum}
+                    </p>
+                  </article>
+                </section>
+              </footer>
+            </article>
           </section>
-        )
-      }
+      )}
     </>
   )
 }

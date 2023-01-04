@@ -4,12 +4,13 @@ import { InfiniteQueryPages, Pokemon } from '../../types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
+  className?: string
   isFavorite: boolean
   pokemonId: string
   _ref?: React.RefObject<SVGSVGElement | any>
 }
 
-const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref }) => {
+const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) => {
   const queryClient = useQueryClient()
   const [favorite, setFavorite] = React.useState(isFavorite)
   const favoritePokemonMutation = useMutation({
@@ -57,6 +58,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref }) => {
   })
   return favorite ? (
     <svg
+      className={className}
       ref={_ref}
       fill="#ff0001"
       height="16"
@@ -79,6 +81,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref }) => {
     </svg>
   ) : (
       <svg
+        className={className}
         ref={_ref}
         fill="#ff0001"
         height="16"
