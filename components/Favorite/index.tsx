@@ -17,7 +17,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) =
     mutationFn: (id: string) => {
       setFavorite(!favorite)
       return toggleFavoritePokemon(id, 'favorite')
-    },
+    }
   })
   const unFavoritePokemonMutation = useMutation({
     mutationFn: (id: string) => {
@@ -32,7 +32,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) =
         '',
         '',
       ])
-      const newPokemonsArray = previousPokemons?.pages.map(
+      const newPokemonsArray = previousPokemons?.pages?.map(
         ({
           limit,
           offset,
@@ -54,7 +54,7 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) =
       }))
 
       return { previousPokemons }
-    },
+    }
   })
   return favorite ? (
     <svg
