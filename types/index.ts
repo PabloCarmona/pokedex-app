@@ -1,3 +1,8 @@
+interface Dimensions {
+  minimum: string
+  maximum: string
+}
+
 export type Pokemon = {
   id: string
   image: string
@@ -5,6 +10,16 @@ export type Pokemon = {
   name: string
   number: number
   types: Array<string>
+}
+
+export type PokemonDetail = Pokemon & {
+  sound: string
+  maxCP: number
+  maxHP: number
+  weight: Dimensions
+  height: Dimensions
+  evolutions: Array<Pokemon>
+  previousEvolutions: Array<Pokemon> | []
 }
 
 export type PokemonTypes = Array<string>

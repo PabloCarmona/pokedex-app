@@ -17,6 +17,9 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) =
     mutationFn: (id: string) => {
       setFavorite(!favorite)
       return toggleFavoritePokemon(id, 'favorite')
+    },
+    onSuccess: async () => {
+      await queryClient.removeQueries({ queryKey: ['pokemons'] })
     }
   })
   const unFavoritePokemonMutation = useMutation({
@@ -54,6 +57,9 @@ const Favorite: React.FC<Props> = ({ isFavorite, pokemonId, _ref, className }) =
       }))
 
       return { previousPokemons }
+    },
+    onSuccess: async () => {
+      await queryClient.removeQueries({ queryKey: ['pokemons'] })
     }
   })
   return favorite ? (
