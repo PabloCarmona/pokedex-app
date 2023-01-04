@@ -44,3 +44,9 @@
 .load-more-btn[disabled] {
   cursor: not-allowed;
 }
+
+@media screen and (max-width: 980px) {
+  .load-more-btn {
+    display: none;
+  }
+}
