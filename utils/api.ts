@@ -16,7 +16,7 @@ export const fetchPokemons = async (
     )
     return res.data
   } catch (error) {
-    console.error(error)
+    return (error as AxiosError).response
   }
 }
 
@@ -34,7 +34,7 @@ export const fetchTypes = async () => {
     const res = await axios.get(`${API_URL}/pokemon-types`)
     return res.data
   } catch (error) {
-    console.error(error)
+    return (error as AxiosError).response
   }
 }
 
@@ -46,6 +46,6 @@ export const toggleFavoritePokemon = async (
     const res = await axios.post(`${API_URL}/pokemon/${pokemonId}/${action}`)
     return res.data
   } catch (error) {
-    console.error(error)
+    return (error as AxiosError).response
   }
 }
