@@ -13,7 +13,7 @@ interface Props {
     event: React.ChangeEvent<HTMLSelectElement> | React.MouseEvent<HTMLButtonElement>
   ) => void
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
-  handleViewMode: (event: React.MouseEvent<SVGSVGElement> | undefined, value: string) => void
+  handleViewMode: (event: React.MouseEvent<HTMLButtonElement> | undefined, value: string) => void
   isFavorite: boolean
   pokemonType: string
   search: string
@@ -86,14 +86,12 @@ const Header: React.FC<Props> = ({
             ))}
           </select>
         </div>
-        <Grid
-          className={styles['view-controls']}
-          onClick={(event) => handleViewMode(event, 'grid')}
-        />
-        <Menu
-          className={styles['view-controls']}
-          onClick={(event) => handleViewMode(event, 'list')}
-        />
+        <button className={styles['view-controls']} type="button" onClick={(event) => handleViewMode(event, 'grid')}>
+          <Grid />
+        </button>
+        <button className={styles['view-controls']} type="button" onClick={(event) => handleViewMode(event, 'list')}>
+          <Menu />
+        </button>
       </form>
     </header>
   )

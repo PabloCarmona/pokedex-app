@@ -68,6 +68,9 @@
 
 .view-controls {
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .view-controls:hover {
