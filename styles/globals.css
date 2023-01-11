@@ -16,4 +16,9 @@ html, body {
   --color-teal-00: #72c1a1;
 
   --color-purple-00: #a09eff;
+
+  --font-size-00: .7rem;
+  --font-size-01: .8rem;
+  --font-size-02: 1.25rem;
+  --font-size-03: 1.5rem;
 }

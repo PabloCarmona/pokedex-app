@@ -48,6 +48,6 @@
 }
 
 .types {
-  font-size: 0.7rem;
+  font-size: var(--font-size-00);
   font-weight: 300;
 }

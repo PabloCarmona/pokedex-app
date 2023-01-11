@@ -38,7 +38,7 @@
   border: none;
   padding: .25rem;
   font-family: inherit;
-  font-size: .8rem;
+  font-size: var(--font-size-01);
 }
 
 .select-wrapper {
@@ -61,7 +61,7 @@
   background-color: var(--color-white-02);
   border: none;
   font-family: inherit;
-  font-size: .8rem;
+  font-size: var(--font-size-01);
   padding: .25rem;
   width: 100%;
 }

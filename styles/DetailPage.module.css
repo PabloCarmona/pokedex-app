@@ -64,7 +64,7 @@
 }
 
 .info-heading {
-  font-size: 1.5rem;
+  font-size: var(--font-size-03);
   line-height: 1;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .dimensions-heading {
-  font-size: 1.25rem;
+  font-size: var(--font-size-02);
   margin-bottom: 5px;
 }
 
