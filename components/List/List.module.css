@@ -49,17 +49,21 @@
   border-left-color: var(--color-white-00);
 }
 
+.spinner-bottom {
+  display: none;
+}
+
 @media screen and (max-width: 980px) {
   .load-more-btn {
-    background-color: transparent;
-    border: none;
-    color: transparent;
-    cursor: none;
-    pointer-events: none;
-    outline: none;
+    display: none;
   }
-  
-  .load-more-btn-spinner {
-    border-left-color: var(--color-red-00);
+
+  .spinner-bottom {
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    width: 100%;
   }
 }

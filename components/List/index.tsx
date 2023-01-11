@@ -65,13 +65,24 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
           ))}
               <li id="last_list_element" ref={ref}>
                 {hasNextPage && (
-                  <button
-                    disabled={isFetchingNextPage || !hasNextPage}
-                    onClick={() => fetchNextPage({ cancelRefetch: true })}
-                    className={styles['load-more-btn']}
-                  >
-                    {isFetchingNextPage ? <Spinner className={styles['load-more-btn-spinner']} /> : 'Load More'}
-                  </button>
+                  <>
+                    {isFetchingNextPage ? (
+                      <div className={styles['spinner-bottom']}>
+                        <Spinner className={styles['main-spinner']} />
+                      </div>
+                    ) : null}
+                    <button
+                      disabled={isFetchingNextPage || !hasNextPage}
+                      onClick={() => fetchNextPage({ cancelRefetch: true })}
+                      className={styles['load-more-btn']}
+                    >
+                      {isFetchingNextPage ? (
+                        <Spinner className={styles['load-more-btn-spinner']} />
+                      ) : (
+                        'Load More'
+                      )}
+                    </button>
+                  </>
                 )}
               </li>
         </ul>
