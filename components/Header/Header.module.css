@@ -1,8 +1,8 @@
 .header {
-  background-color: #fff;
+  background-color: var(--color-white-00);
   width: 100%;
   padding: 1.2rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 10px var(--color-shadow);
   position: sticky;
   top: 0;
 }
@@ -15,15 +15,15 @@
 
 .nav-item {
   flex: 1;
-  border: 1px solid #ca3317;
-  background-color: #fff;
-  color: #ca3317;
+  border: 1px solid var(--color-red-00);
+  background-color: var(--color-white-00);
+  color: var(--color-red-00);
   cursor: pointer;
 }
 
 .nav-item-selected {
-  background-color: #ca3317;
-  color: #fff;
+  background-color: var(--color-red-00);
+  color: var(--color-white-00);
 }
 
 .filters {
@@ -34,7 +34,7 @@
 }
 
 .search {
-  background-color: rgb(236, 236, 236);
+  background-color: var(--color-white-02);
   border: none;
   padding: .25rem;
   font-family: inherit;
@@ -43,7 +43,7 @@
 
 .select-wrapper {
   align-items: center;
-  background-color: rgb(236, 236, 236);
+  background-color: var(--color-white-02);
   border-right: .25rem solid transparent;
   display: flex;
   position: relative;
@@ -58,7 +58,7 @@
 }
 
 .select {
-  background-color: rgb(236, 236, 236);
+  background-color: var(--color-white-02);
   border: none;
   font-family: inherit;
   font-size: .8rem;
@@ -74,5 +74,5 @@
 }
 
 .view-controls:hover {
-  background-color: #ca32173b;
+  background-color: var(--color-red-01);
 }

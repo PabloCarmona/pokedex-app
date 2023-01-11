@@ -70,7 +70,7 @@ const List: React.FC<Props> = ({ isFavorite, search, pokemonType, viewMode }) =>
                     onClick={() => fetchNextPage({ cancelRefetch: true })}
                     className={styles['load-more-btn']}
                   >
-                    {isFetchingNextPage ? <Spinner /> : 'Load More'}
+                    {isFetchingNextPage ? <Spinner className={styles['load-more-btn-spinner']} /> : 'Load More'}
                   </button>
                 )}
               </li>
